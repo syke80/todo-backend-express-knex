@@ -12,7 +12,7 @@ const app = require('../app.js');
 
 // Relative paths are used for supertest in the util file.
 const urlFromTodo = todo => new URL(todo.url)["pathname"];
-const getRoot = _ => request.get('/');
+const getAllTodos = () => request.get('/');
 const getBody = response => response.body;
 
 describe(`Todo-Backend API residing at http://localhost:${process.env.PORT}`, () => {
@@ -43,7 +43,7 @@ describe(`Todo-Backend API residing at http://localhost:${process.env.PORT}`, ()
 
         it("after a DELETE the api root responds to a GET with a JSON representation of an empty array", 
             async () => {
-                var deleteThenGet = await request.delete("/").then(getRoot).then(getBody);
+                var deleteThenGet = await request.delete("/").then(getAllTodos).then(getBody);
                 expect(deleteThenGet).toEqual([]);
             }
         );
@@ -56,7 +56,7 @@ describe(`Todo-Backend API residing at http://localhost:${process.env.PORT}`, ()
 
         it("adds a new todo to the list of todos at the root url", async () => {
             const starting = { title:"walk the dog" };
-            var getAfterPost = await request.post('/', starting).then(getRoot).then(getBody);
+            var getAfterPost = await request.post('/', starting).then(getAllTodos).then(getBody);
             expect(getAfterPost).toHaveLength(1);
             expect(getAfterPost[0]).toMatchObject(expect.objectContaining(starting));
         });
@@ -65,7 +65,7 @@ describe(`Todo-Backend API residing at http://localhost:${process.env.PORT}`, ()
         return request.post('/', { title: "blah" })
             .then(getBody)
             .then(verifyTodoExpectation)
-            .then(getRoot)
+            .then(getAllTodos)
             .then(getBody)
             .then((todosFromGet) => {
                 verifyTodoExpectation(todosFromGet[0]);
@@ -109,7 +109,7 @@ describe(`Todo-Backend API residing at http://localhost:${process.env.PORT}`, ()
                     ]
                 );
 
-            const todoList = await makeTwoTodos.then(getRoot).then(getBody);
+            const todoList = await makeTwoTodos.then(getAllTodos).then(getBody);
             expect(todoList).toHaveLength(2);
             const getAgainstUrlOfFirstTodo = await request.get(urlFromTodo(todoList[0])).then(getBody);
             expect(getAgainstUrlOfFirstTodo).toHaveProperty("title");
