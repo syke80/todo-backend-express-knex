@@ -90,9 +90,7 @@ class App extends Component {
         </header>
 
         <form onSubmit={this.handleSubmit}>
-          <p>
-            <h3>Send to Server:</h3>
-          </p>
+          <h3>Send to Server:</h3>
           <select value={method} onChange={this.changeMethod}>
             <option value="GET">Get</option>
             <option value="POST">Post</option>
