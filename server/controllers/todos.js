@@ -1,7 +1,7 @@
 const _ = require('lodash');
-const todos = require('./database/todo-queries.js');
+const todos = require('../database/todo-queries.js');
 
-function createToDo(req, data) {
+function createToDoPayloadItem(req, data) {
   const protocol = req.protocol, 
     host = req.get('host'), 
     id = data.id;
@@ -16,7 +16,7 @@ function createToDo(req, data) {
 
 async function getAllTodos(req, res) {
   const allEntries = await todos.all();
-  return res.send(allEntries.map( _.curry(createToDo)(req) ));
+  return res.send(allEntries.map( item => createToDoPayloadItem(req, item) ));
 }
 
 async function getTodo(req, res) {
@@ -26,22 +26,22 @@ async function getTodo(req, res) {
 
 async function postTodo(req, res) {
   const created = await todos.create(req.body.title, req.body.order);
-  return res.send(createToDo(req, created));
+  return res.send(createToDoPayloadItem(req, created));
 }
 
 async function patchTodo(req, res) {
   const patched = await todos.update(req.params.id, req.body);
-  return res.send(createToDo(req, patched));
+  return res.send(createToDoPayloadItem(req, patched));
 }
 
 async function deleteAllTodos(req, res) {
   const deletedEntries = await todos.clear();
-  return res.send(deletedEntries.map( _.curry(createToDo)(req) ));
+  return res.send(deletedEntries.map( _.curry(createToDoPayloadItem)(req) ));
 }
 
 async function deleteTodo(req, res) {
   const deleted = await todos.delete(req.params.id);
-  return res.send(createToDo(req, deleted));
+  return res.send(createToDoPayloadItem(req, deleted));
 }
 
 function addErrorReporting(func, message) {
