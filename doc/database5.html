@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+    <link rel="stylesheet" href="database.css">
+  </head>
+
+  <body>
+    <main class="todo-doc">
+      <h1>Database Design</h1>
+      <h2>Add users</h2>
+
+      <div class="container">
+        <div>
+          <h3>Tasks</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Column</th>
+                <th>Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>id</td>
+                <td>int</td>
+              </tr>
+              <tr>
+                <td>project_id</td>
+                <td>int</td>
+              </tr>
+              <tr>
+                <td>title</td>
+                <td>string</td>
+              </tr>
+              <tr>
+                <td>description</td>
+                <td>string</td>
+              </tr>
+              <tr>
+                <td>order</td>
+                <td>int</td>
+              </tr>
+              <tr>
+                <td>deadline</td>
+                <td>date?</td>
+              </tr>
+              <tr class="todo-doc__new">
+                <td>assigned_user_id</td>
+                <td>int</td>
+              </tr>
+              <tr>
+                <td>status</td>
+                <td>enum (todo, in_progress, done)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div>
+          <h3>Projects</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Column</th>
+                <th>Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>id</td>
+                <td>int</td>
+              </tr>
+              <tr>
+                <td>team_id</td>
+                <td>int?</td>
+              </tr>
+              <tr>
+                <td>name</td>
+                <td>string</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div>
+          <h3>Teams</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Column</th>
+                <th>Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>id</td>
+                <td>int</td>
+              </tr>
+              <tr>
+                <td>name</td>
+                <td>string</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div>
+          <h3>Users</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Column</th>
+                <th>Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="todo-doc__new">
+                <td>id</td>
+                <td>int</td>
+              </tr>
+              <tr class="todo-doc__new">
+                <td>name</td>
+                <td>string</td>
+              </tr>
+              <tr class="todo-doc__new">
+                <td>email <span class="todo-doc__minor">(Unique)</span></td>
+                <td>string</td>
+              </tr>
+              <tr class="todo-doc__new">
+                <td>password</td>
+                <td>string</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

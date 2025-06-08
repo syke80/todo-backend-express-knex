@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+    <link rel="stylesheet" href="database.css">
+  </head>
+
+  <body>
+    <main class="todo-doc">
+      <h1>Database Design</h1>
+      <h2>Add more details</h2>
+
+      <div class="container">
+        <div>
+          <h3>Tasks</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Column</th>
+                <th>Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>id</td>
+                <td>int</td>
+              </tr>
+              <tr>
+                <td>title</td>
+                <td>string</td>
+              </tr>
+              <tr class="todo-doc__new">
+                <td>description</td>
+                <td>string</td>
+              </tr>
+              <tr class="todo-doc__new">
+                <td>order</td>
+                <td>int</td>
+              </tr>
+              <tr class="todo-doc__new">
+                <td>deadline</td>
+                <td>date?</td>
+              </tr>
+              <tr class="todo-doc__updated">
+                <td>status</td>
+                <td>enum (todo, in_progress, done)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
