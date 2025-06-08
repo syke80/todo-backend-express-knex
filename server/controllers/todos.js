@@ -9,7 +9,7 @@ function createToDoPayloadItem(req, data) {
   return {
     title: data.title,
     order: data.order,
-    completed: data.completed || false,
+    status: data.status,
     url: `${protocol}://${host}/${id}`
   };
 }

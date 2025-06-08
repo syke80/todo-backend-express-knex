@@ -72,9 +72,9 @@ describe(`Todo-Backend API residing at http://localhost:${process.env.PORT}`, ()
             });
       }
 
-        it("sets up a new todo as initially not completed", async () => {
+        it("sets up a new todo as initially not completed (with `todo` status)", async () => {
             await createTodoAndVerifyItLooksValidWith((todo) => {
-                expect(todo).toMatchObject(expect.objectContaining({ "completed": false }));
+                expect(todo).toMatchObject(expect.objectContaining({ "status": 'todo' }));
                 return todo;
             });
         });
@@ -124,18 +124,24 @@ describe(`Todo-Backend API residing at http://localhost:${process.env.PORT}`, ()
             expect(patchedTodo).not.toMatchObject(expect.objectContaining(initialTitle));
         });
 
-        it("can change the todo's completedness by PATCHing to the todo's url", async () => {
+        it("can change the todo's status to `done` by PATCHing to the todo's url", async () => {
             const urlForNewTodo = await createFreshTodoAndGetItsUrl()
-            const patchedTodo = await request.patch(urlForNewTodo, { completed: true }).then(getBody);
-            expect(patchedTodo).toHaveProperty("completed", true);
+            const patchedTodo = await request.patch(urlForNewTodo, { status: 'done' }).then(getBody);
+            expect(patchedTodo).toHaveProperty("status", 'done');
+        });
+
+        it("can change the todo's status to `in_progress` by PATCHing to the todo's url", async () => {
+            const urlForNewTodo = await createFreshTodoAndGetItsUrl()
+            const patchedTodo = await request.patch(urlForNewTodo, { status: 'in_progress' }).then(getBody);
+            expect(patchedTodo).toHaveProperty("status", 'in_progress');
         });
 
         it("changes to a todo are persisted and show up when re-fetching the todo", async () => {
             const urlForNewTodo = await createFreshTodoAndGetItsUrl()
-            const patchedTodo = await request.patch(urlForNewTodo, {title:"changed title", completed:true}).then(getBody);
+            const patchedTodo = await request.patch(urlForNewTodo, {title:"changed title", status:'done'}).then(getBody);
 
             function verifyTodosProperties(todo){
-                expect(todo).toHaveProperty("completed", true);
+                expect(todo).toHaveProperty("status", 'done');
                 expect(todo).toHaveProperty("title", "changed title");
             }
 

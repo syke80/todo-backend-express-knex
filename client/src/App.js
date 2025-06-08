@@ -12,14 +12,14 @@ class App extends Component {
     id: '',
     title: '',
     order: '',
-    completed: false,
+    status: 'todo',
 
     response: [],
   };
   
   handleSubmit = async e => {
     e.preventDefault();
-    let { method, id, title, order, completed } = this.state;
+    let { method, id, title, order, status } = this.state;
     
     let request = {
       method,
@@ -33,7 +33,7 @@ class App extends Component {
     order = order ? Number(order) : undefined;
 
     if (method !== "GET")
-      request.body = JSON.stringify({ title, order, completed })
+      request.body = JSON.stringify({ title, order, status })
 
     this.setState({ lastRequest: `${method} at /${id}`});
     // Code smells, but the setup of todo-backend with get('/') returning a list of todos requires
@@ -73,12 +73,12 @@ class App extends Component {
   };
   
   render() {
-    const { method, lastRequest, id, title, order, completed, response } = this.state;
+    const { method, lastRequest, id, title, order, status, response } = this.state;
 
     const shouldDisplayIdInput = method !== "POST";
     const shouldDisplayTitleInput = method === "POST" || method === "PATCH";
     const shouldDisplayOrderInput = method === "POST" || method === "PATCH";
-    const shouldDisplayCompletedInput = method === "PATCH";
+    const shouldDisplayStatusInput = method === "PATCH";
 
     return (
       <div className="App">
@@ -120,14 +120,16 @@ class App extends Component {
           />
 
           <label>
-            Completed?
-            <input
+            <select
               display="inline-block"
-              disabled={!shouldDisplayCompletedInput}
-              type="checkbox"
-              value={completed}
-              onChange={e => this.setState({ completed: e.target.checked })}
-            />
+              disabled={!shouldDisplayStatusInput}
+              value={status}
+              onChange={e => this.setState({ status: e.target.value })}
+            >
+              <option value="todo">Todo</option>
+              <option value="in_progress">In progress</option>
+              <option value="Done">Done</option>
+            </select>
           </label>
 
           <button type="submit">Submit</button>
