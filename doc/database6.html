@@ -2,7 +2,7 @@
 
 <html>
 	<head>
-    <link rel="stylesheet" href="database.css">
+    <link rel="stylesheet" href="doc.css">
   </head>
 
   <body>
@@ -10,7 +10,36 @@
       <h1>Database Design</h1>
       <h2>Add organisations</h2>
 
-      <div class="container">
+      <div class="todo-doc__info">
+        <p>Adding organizations to the database schema becomes timely when we want to offer our app as a SaaS solution rather than just a self-hosted one.</p>
+        <p>In Trello, this is solved by making one user the owner of a project - they're the one who adds other users. I think it makes more sense to have organisations that group together all the projects, users, etc. belonging to a company.</p>
+
+        <p>The <strong>team table</strong> is straightforward - teams belong to an organisation. So every team is linked to exactly one organisation, and an organisation can have many teams. That's a classic one-to-many relationship.</p>
+
+        <p>
+          The <strong>project table</strong> is a bit different. At first glance, it doesn't need an organisation_id, since it's already linked to a team, which is linked to an organisation.<br>
+          But as we've already discussed, team_id is optional - and if it's null, then we'd have no way of knowing which organisation the project belongs to.
+          So we do need to store the organisation_id directly on the project.
+        </p>
+
+        <p>In the <strong>tasks table</strong>, on the other hand, we don't need the organisation_id, because each task belongs to a project, and the project already has that info.</p>
+
+        <p>
+          The <strong>user table</strong> is a tricky one.
+          You might think at first that each user should belong to an organisation.
+          But if you think through the flow, you hit a classic chicken-and-egg problem:
+          If the organisation doesn't exist yet, what would the user belong to?
+          So during registration, we create a user without an organisation.
+          Then that user can go ahead and create the organisation.
+        </p>
+
+        <p>
+          As the product owner of this Todo App, I think the ideal flow is this:
+          Organisation members invite additional users - they send them an invite, and the new user only needs to set their password.
+        </p>
+      </div>
+
+      <div class="container container--flex">
         <div>
           <h3>Tasks</h3>
           <table>

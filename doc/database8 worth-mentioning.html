@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+    <link rel="stylesheet" href="doc.css">
+  </head>
+
+  <body>
+    <main class="todo-doc">
+      <h1>Database Design</h1>
+      <h2>Worth mentioning</h2>
+
+      <div class="container">
+        <p>
+          I've occasionally run into situations where using an auto-incrementing ID isn't ideal.
+          It's not the usual "predictable integer" concern, but the offline usage of the app.
+        </p>
+
+        <p>
+        If the app needs to work offline and a user creates a new project,
+        we need to assign it an ID immediately, because projectId is needed when the user starts creating tasks under that project
+        And the project_id has to be generated on the client side, since there's no connection to the server.
+        </p>
+
+        <p>
+        Once the internet connection is restored, well send the data to the API, including the pre-generated IDs.
+        To avoid any risk of collision, it makes sense to use something like a UUID or CUID instead of relying on auto-incrementing IDs.
+        </p>
+      </div>
+    </main>
+  </body>
+</html>

@@ -2,7 +2,7 @@
 
 <html>
 	<head>
-    <link rel="stylesheet" href="database.css">
+    <link rel="stylesheet" href="doc.css">
   </head>
 
   <body>
@@ -10,7 +10,29 @@
       <h1>Database Design</h1>
       <h2>Add teams</h2>
 
-      <div class="container">
+      <div class="todo-doc__info">
+        <p>
+          As the number of projects grows, it makes sense to assign them to people - that way, everyone only sees the projects relevant to them.
+          I considered creating a user table for this, but in larger companies, projects are usually handled by teams. So it's more practical to manage teams and assign entire teams to projects.
+        </p>
+
+        <p>
+          But here, too, the question came up: should the Teams-Projects relationship be one-to-many or many-to-many?
+        </p>
+
+        <p>
+          Long story short: I decided to keep it one-to-many for now - meaning a single team works on a project.
+          The team_id field is optional (nullable), because it's totally realistic to create a project before knowing which team will handle it.
+        </p>
+
+        <p>
+          Later on, it might be worth switching to a many-to-many setup - it's perfectly common for multiple teams to collaborate on a project.
+          Technically, it wouldn't be hard to implement even now, but it would complicate the endpoints and the UI, which would increase the development time.
+          If we're building incrementally, it's smarter to leave that for later.
+        </p>
+      </div>
+
+      <div class="container container--flex">
         <div>
           <h3>Tasks</h3>
           <table>

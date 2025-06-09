@@ -1,0 +1,196 @@
+
+<!DOCTYPE html>
+
+<html>
+	<head>
+    <link rel="stylesheet" href="doc.css">
+  </head>
+
+  <body>
+    <main class="todo-doc">
+      <h1>API</h1>
+
+      <div class="container container--center container--flex">
+        <p class="todo-doc__important">The only public (non-restricted) endpoints are those related to authentication.</p>
+        <div>
+          <h2>Authentication</h2>
+          <table>
+            <tr>
+              <td>[POST]</td>
+              <td>/auth/register</td>
+            </tr>
+            <tr>
+              <td>[POST]</td>
+              <td>/auth/verify-email</td>
+            </tr> 
+            <tr>
+              <td>[POST]</td>
+              <td>/auth/login</td>
+            </tr>
+            <tr>
+              <td>[POST]</td>
+              <td>/auth/logout</td>
+            </tr>
+            <tr>
+              <td>[POST]</td>
+              <td>/auth/refresh <br> <span class="todo-doc__minor">(I generally use JWT token, and it has an expiration)</span></td>
+            </tr>
+            <tr>
+              <td>[POST]</td>
+              <td>/auth/forgot-password <br> <span class="todo-doc__minor">(sends an email to the user with a one time login link)</span></td>
+            </tr>
+            <tr>
+              <td>[POST]</td>
+              <td>/auth/one-time-login <br> <span class="todo-doc__minor">(login with a token)</span></td>
+            </tr>
+            <tr>
+              <td>[POST]</td>
+              <td>/auth/accept-invite</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      
+      <div class="container container--center container--flex">
+      <p class="todo-doc__important">All database tables have CRUD endpoints secured by an authorization middleware, which reads the JWT token from the header and verifies in the database whether the user has access. If access is denied, it returns a 403 Forbidden response.</p>
+        <div>
+          <h2>Tasks</h2>
+          <table>
+            <tr>
+              <td>[GET]</td>
+              <td>/tasks/:id</td>
+            </tr>
+            <tr>
+              <td>[POST]</td>
+              <td>/tasks</td>
+            </tr>
+            <tr>
+              <td>[PUT]</td>
+              <td>/tasks/:id</td>
+            </tr>
+            <tr>
+              <td>[DELETE]</td>
+              <td>/tasks/:id</td>
+            </tr>
+          </table>
+        </div>
+
+        <div>
+          <h2>Projects</h2>
+          <table>
+            <tr>
+              <td>[GET]</td>
+              <td>/projects/:id</td>
+            </tr>
+            <tr>
+              <td>[POST]</td>
+              <td>/projects</td>
+            </tr>
+            <tr>
+              <td>[PUT]</td>
+              <td>/projects/:id</td>
+            </tr>
+            <tr>
+              <td>[DELETE]</td>
+              <td>/projects/:id</td>
+            </tr>
+          </table>
+        </div>
+
+        <div>
+          <h2>Teams</h2>
+          <table>
+            <tr>
+              <td>[GET]</td>
+              <td>/teams/:id</td>
+            </tr>
+            <tr>
+              <td>[POST]</td>
+              <td>/teams</td>
+            </tr>
+            <tr>
+              <td>[PUT]</td>
+              <td>/teams/:id</td>
+            </tr>
+            <tr>
+              <td>[DELETE]</td>
+              <td>/teams/:id</td>
+            </tr>
+          </table>
+        </div>
+
+        <div>
+          <h2>Organisations</h2>
+          <table>
+            <tr>
+              <td>[GET]</td>
+              <td>/organsiations/:id</td>
+            </tr>
+            <tr>
+              <td>[POST]</td>
+              <td>/organsiations</td>
+            </tr>
+            <tr>
+              <td>[PUT]</td>
+              <td>/organsiations/:id</td>
+            </tr>
+            <tr>
+              <td>[DELETE]</td>
+              <td>/organsiations/:id</td>
+            </tr>
+          </table>
+        </div>
+
+        <div>
+          <h2>Status</h2>
+          <table>
+            <tr>
+              <td>[GET]</td>
+              <td>/status/:id</td>
+            </tr>
+            <tr>
+              <td>[POST]</td>
+              <td>/status</td>
+            </tr>
+            <tr>
+              <td>[PUT]</td>
+              <td>/status/:id</td>
+            </tr>
+            <tr>
+              <td>[DELETE]</td>
+              <td>/status/:id</td>
+            </tr>
+          </table>
+        </div>
+
+        <div>
+          <h2>Users</h2>
+          <table>
+            <tr>
+              <td>[GET]</td>
+              <td>/users/:id</td>
+            </tr>
+            <tr>
+              <td>[POST]</td>
+              <td>/users</td>
+            </tr>
+            <tr>
+              <td>[PUT]</td>
+              <td>/users/:id</td>
+            </tr>
+            <tr>
+              <td>[DELETE]</td>
+              <td>/users/:id</td>
+            </tr>
+            <tr class="todo-doc__new">
+              <td>[POST]</td>
+              <td>/users/invite</td>
+            </tr>
+          </table>
+        </div>
+
+        <p class="todo-doc__important">There's one additional endpoint in the users table for sending invitations in email.</p>
+      </div>
+    </main>
+  </body>
+</html>
